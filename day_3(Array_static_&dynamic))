@@ -1,0 +1,30 @@
+class arr ;
+rand bit[7:0]data ;
+rand bit[7:0] id ;
+endclass 
+
+module Array;
+arr s_a[5] ;
+arr d_a[];
+initial 
+    begin 
+     d_a = new[5];   
+     foreach(s_a[i])
+        begin 
+            s_a[i] = new();
+            s_a[i].data = i*i;
+            s_a[i].id = i;
+        end 
+        foreach(s_a[i])
+            $display("s_a: data = %0d | id = %0d",s_a[i],i);
+            
+        foreach(d_a[i])
+            begin 
+                d_a[i] = new();
+                d_a[i].data = i+i;
+                d_a[i].id = i;
+            end 
+         foreach(d_a[i])
+                $display("d_a: data = %0d | id = %0d",d_a[i],i);            
+    end 
+endmodule
