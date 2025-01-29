@@ -4,8 +4,8 @@ rand bit[7:0] id ;
 endclass 
 
 module Array;
-arr s_a[5] ;
-arr d_a[];
+arr s_a[5] ; // static array  
+arr d_a[];   // dynamic array 
 initial 
     begin 
      d_a = new[5];   
