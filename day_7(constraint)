@@ -1,0 +1,23 @@
+class num_betn_99_100;
+    randc  int num;
+    real real_num ;
+    constraint c1 {num inside{[990:1000]};}
+//    constraint c2 {real_num == num/10;}
+    function void disp();
+        real_num = num / 10.0;
+        $display("%2f",real_num);
+    endfunction 
+endclass
+
+module unique_no_betwn_99_100;
+    num_betn_99_100 ch ;
+    initial 
+        begin 
+        ch = new();
+        repeat(10)
+            begin 
+                ch.randomize();
+                ch.disp();
+            end 
+        end 
+endmodule
