@@ -1,0 +1,59 @@
+////`timescale 1ns / 1ps
+////////////////////////////////////////////////////abstract class with virtual method  ///////////////////////////////////////
+//virtual class base_1 ;
+// int id ;
+// int data ;
+// virtual task disp();
+//  $display ("base : id = %0d  || data %0d",id ,data);
+// endtask
+//endclass 
+
+//class child_1 extends base_1 ;
+//task disp();
+//  $display ("child : id = %0d  || data %0d",id ,data);
+// endtask
+// endclass
+
+//module abstract_class_1;
+//child_1 c ;
+//base_1 b ;
+//    initial 
+//     begin 
+//        c = new();
+//        b = c ;
+//        b.data = 10 ;
+//        b.id = 20 ;
+//        b.disp();
+//      end   
+//endmodule
+
+/////////////////////////////////////////////////abstract class without  virtual method //////////////////////////////////////
+
+virtual class base_1 ;
+ int id ;
+ int data ;
+ task disp();
+  $display ("base : id = %0d  || data %0d",id ,data);
+ endtask
+endclass 
+
+class child_1 extends base_1 ;
+task disp();
+  $display ("child : id = %0d  || data %0d",id ,data);
+ endtask
+ endclass
+
+module abstract_class_1;
+child_1 c ;
+base_1 b ;
+    initial 
+     begin 
+        c = new();
+        b = c ;
+        b.data = 10 ;
+        b.id = 20 ;
+        b.disp();
+      end   
+endmodule
+
+
