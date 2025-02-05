@@ -1,0 +1,26 @@
+virtual class base_2;
+    int id;
+    int data;
+    
+    pure virtual function void disp(); // Pure virtual function
+endclass
+
+class child_2 extends base_2;
+    // Implementing the pure virtual function
+    function void disp();
+        $display("child : id = %0d  || data %0d", id, data);
+    endfunction
+endclass
+
+module abstract_class_2;
+    child_2 c;
+    base_2 b;
+    
+    initial begin
+        c = new();  // Creating object of child_2
+        b = c;      // Polymorphism: base class handle points to child class object
+        b.data = 10;
+        b.id = 20;
+        b.disp();   // Calls child_2's implementation of disp()
+    end
+endmodule
