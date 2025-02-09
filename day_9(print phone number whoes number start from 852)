@@ -1,0 +1,36 @@
+`timescale 1ns / 1ps
+//////////////////////// print phone number whoes number start from 852///////////////////////////////
+class cns ;
+rand int num[];
+integer i ;
+constraint c1{num.size()==10;}
+constraint c2{
+            foreach(num[i])
+            {
+                if(i%2==0)
+                   num[i]%2== 8 ;
+                else if(i==1)   
+                   num[i]==5;
+                else if(i==2)
+                   num[i]==2;   
+             }
+               }
+               function void disp();
+                 foreach(num[i])
+                   $write("%0d",num[i]);
+                   $display("------------------");
+               endfunction     
+endclass 
+module arr;
+cns c ;
+  initial 
+    begin 
+      c= new();
+      repeat(10)
+         begin 
+          c.randomize();
+          c.disp();
+         end
+    end 
+  
+endmodule
