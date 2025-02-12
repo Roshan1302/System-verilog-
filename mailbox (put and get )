@@ -1,0 +1,52 @@
+module mailbox_eg_1;
+  mailbox #(int) mb = new();  // Corrected mailbox declaration
+
+  task process_a;
+    int val = 3;
+    mb.put(val);
+    $display("Putting the value in mailbox = %0d", val);
+  endtask 
+
+  task process_b;
+    int val;
+    mb.get(val);  // Now correctly retrieving the value from the mailbox
+    $display("Getting the value from mailbox = %0d", val);
+  endtask 
+
+  initial begin
+    fork
+      process_a();
+      process_b();
+    join
+  end
+endmodule
+
+//////////////////////////////////////////////////////////// and geting value from mailbox ---eg(2)//////////////////////////////////////////////////////////////////
+module mailbox_eg_2;
+  mailbox #(int) _mb = new(); 
+
+  task process_a;
+    int val;
+    repeat(5) begin  // Ensure same number of iterations in both tasks
+      val = $urandom_range(10, 16);  // Assign value before putting it
+      mb.put(val);
+      $display("Putting the value in mailbox = %0d", val);
+    end
+  endtask 
+
+  task process_b;
+    int val;
+    #5;  // Small delay to let `process_a` start first (optional but useful)
+    repeat(5) begin
+      mb.get(val);
+      $display("Getting the value from mailbox = %0d", val);
+    end
+  endtask 
+
+  initial begin
+    fork
+      process_a();
+      process_b();
+    join
+  end
+endmodule
