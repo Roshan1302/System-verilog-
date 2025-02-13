@@ -1,0 +1,32 @@
+
+module mailbox_eg;
+  mailbox #(int) mb = new(5); // Corrected mailbox instantiation
+
+  task process_a;
+    int val;
+    repeat(7) begin
+      val = $urandom_range(10, 20);  // Assign value before putting it
+      if (mb.try_put(val))  // Corrected try_put usage
+        $display("Put value successfully = %0d", val);
+      else 
+        $display("Failed to put value = %0d", val);
+    end
+  endtask 
+
+  task process_b;
+    int val;
+    repeat(7) begin
+      if (mb.try_get(val))  // Corrected try_get usage
+        $display("Get value successfully = %0d", val);
+      else 
+        $display("Failed to get value");
+    end
+  endtask 
+
+  initial begin
+    fork
+      process_a();
+      process_b();
+    join
+  end
+endmodule
