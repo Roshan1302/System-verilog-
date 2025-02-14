@@ -1,0 +1,29 @@
+class first;
+    int data;
+endclass
+
+class second;
+    int ds;
+    first f1;
+    
+    function new();
+        f1 = new(); // Initialize first object
+    endfunction 
+endclass
+
+module shallow_copy;
+    second s1, s2; 
+    
+    initial begin
+        s1 = new(); // Create object for s1
+        s1.ds = 42;
+        
+        s2 = new s1; // Shallow copy: s2 now points to the same object as s1
+
+        $display("Before modification: s2.ds = %0d", s2.ds);
+        
+        s2.ds = 72; // This will modify s1.ds as well
+        $display("After modification: s1.ds = %0d", s1.ds);
+              
+    end
+endmodule
