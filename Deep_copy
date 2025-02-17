@@ -1,0 +1,52 @@
+`timescale 1ns / 1ps
+class first;
+    int data;
+    
+    // Deep copy function for first
+    function first copy();
+        copy = new();
+        copy.data = this.data; // Copying data field
+    endfunction 
+endclass
+
+class second;
+    int ds;
+    first f1;
+    
+    // Constructor to initialize f1
+    function new();
+        f1 = new(); // Initialize first object
+    endfunction 
+
+    // Deep copy function for second
+    function second copy();
+        copy = new();
+        copy.ds = this.ds; // Copy primitive data
+        copy.f1 = this.f1.copy(); // Deep copy of f1
+    endfunction 
+endclass
+
+module deep_copy;
+    second s1, s2; 
+    
+    initial begin
+        s1 = new(); // Create object for s1
+        s1.ds = 42;
+        s1.f1.data = 100; // Initialize f1's data
+        
+        // Create a deep copy
+        s2 = s1.copy();
+
+        // Display before modification
+        $display("Before modification: s1.ds = %0d, s2.ds = %0d", s1.ds, s2.ds);
+        $display("Before modification: s1.f1.data = %0d, s2.f1.data = %0d", s1.f1.data, s2.f1.data);
+        
+        // Modify s2 and check if s1 remains unchanged
+        s2.ds = 72;
+        s2.f1.data = 200;
+
+        // Display after modification
+        $display("After modification: s1.ds = %0d, s2.ds = %0d", s1.ds, s2.ds);
+        $display("After modification: s1.f1.data = %0d, s2.f1.data = %0d", s1.f1.data, s2.f1.data);
+    end
+endmodule
