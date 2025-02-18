@@ -1,0 +1,43 @@
+`timescale 1ns / 1ns
+// @() -> edge trigger event or blocking event 
+// wait() -> level sensitive or nonblocking event 
+//module event_sv;
+//event a ;
+//initial 
+//  begin 
+//    #10 
+//    ->a ;  // triggering event 
+//  end 
+  
+//initial 
+//    begin 
+////     @(a) ;  
+//       wait(a.triggered);   // output is same for both 
+//      $display("received event at %0t",$time );
+//    end   
+//endmodule
+
+//////////////////blocking event /////////////////////////////////////////////////////////
+module event_sv;
+event a1,a2 ;
+initial 
+  begin 
+    ->a1;
+    #10
+    ->a2 ;  // triggering event 
+  end 
+  
+initial 
+    begin 
+//      wait(a1.triggered) ; 
+      @(a1); 
+      $display("received a1 event at %0t",$time );
+//      wait(a2.triggered) ;  
+      @(a2); 
+      $display("received a2 event at %0t",$time );
+    end   
+endmodule
+
+/// if we use wait in above code received a1 event at 0
+                                 //received a2 event at 10000 this will be output 
+// if we use @ it will not show output                                  
