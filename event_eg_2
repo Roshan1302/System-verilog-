@@ -1,0 +1,29 @@
+module event_eg_2;
+int data_1 ,data_2;
+event done ;
+initial 
+  begin 
+    repeat(5)
+      begin 
+      #10
+        data_1 = $urandom_range(10,20);
+        $display("tx_data = %0d ",data_1);
+        
+      end 
+      ->done ;
+  end 
+  initial 
+    begin 
+    forever
+      begin 
+         #10
+          data_2 = data_1;
+          $display("rx_data = %0d ",data_2);
+        end 
+    end 
+    initial 
+      begin 
+        wait(done.triggered);
+        $finish ;
+      end 
+endmodule
